@@ -65,7 +65,7 @@ int main() {
 
     ofstream checkof("check_Pearson.dat");
     for (int i = 0; i < hist_length; i++) {
-        hist[i] /= n_sample;
+        hist[i] /= (n_sample*dx);
         hist[i] += 1e-30;
     }
 
