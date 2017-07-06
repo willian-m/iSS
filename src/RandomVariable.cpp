@@ -272,7 +272,7 @@ void RandomVariable::constructEnvelopTab(double center, double width, int step_l
   envelopInvCDFTab->setMappingTable(idx, 0, LB);
   idx ++;
   // fill in the loop
-  for (int ii=0; ii<step_left+step_right; ii++)
+  for (int ii = 0; ii < step_left+step_right; ii++)
   {
     pdfLarger = pdfLB>pdfRB? pdfLB : pdfRB;
     envelopPdfTab->setMappingTable(idx, LB+width/2, pdfLarger);
