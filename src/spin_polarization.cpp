@@ -24,7 +24,7 @@ SpinPolarization::SpinPolarization(const std::vector<FO_surf> &FOsurf_ptr,
         FOsurf_ptr_(FOsurf_ptr), particle_info_(particles),
         paraRdr_(paraRdr) {
 
-    double dpT = 3.0/NpT_;
+    double dpT = pTmax_/NpT_;
     pT_arr_.resize(NpT_);
     for (int i = 0; i < NpT_; i++)
         pT_arr_[i] = (i + 0.5)*dpT;

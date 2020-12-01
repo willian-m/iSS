@@ -19,6 +19,7 @@ class SpinPolarization {
     std::vector<std::string> vorticity_typenames_;
     const ParameterReader &paraRdr_;
 
+    const double pTmax_  = 3;
     const int NpT_  = 30;
     const int Nphi_ = 48;
     const int Ny_   = 51;
