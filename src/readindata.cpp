@@ -177,7 +177,7 @@ int read_FOdata::get_number_of_freezeout_cells() {
 
 int read_FOdata::get_number_of_lines_of_binary_surface_file(string filename) {
     std::ifstream surface_file(filename.c_str(), std::ios::binary);
-    int count = 0;
+    unsigned long int count = 0;
     float temp = 0.;
     while(surface_file) {
         surface_file.read(reinterpret_cast<char*>(&temp), sizeof(float));
