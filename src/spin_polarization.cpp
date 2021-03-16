@@ -28,7 +28,11 @@ SpinPolarization::SpinPolarization(const std::vector<FO_surf> &FOsurf_ptr,
     pT_arr_.resize(NpT_);
     for (int i = 0; i < NpT_; i++)
         pT_arr_[i] = (i + 0.5)*dpT;
-    double dphi = 2.*M_PI/Nphi_;
+    double phimax = 2.*M_PI;
+    //double phimax = 1.1;
+    double phimin = 0;
+    //double phimin = .1;
+    double dphi = (phimax-phimin)/Nphi_;
     phi_arr_.resize(Nphi_);
     cos_phi_arr_.resize(Nphi_);
     sin_phi_arr_.resize(Nphi_);
@@ -37,11 +41,11 @@ SpinPolarization::SpinPolarization(const std::vector<FO_surf> &FOsurf_ptr,
         cos_phi_arr_[i] = cos(phi_arr_[i]);
         sin_phi_arr_[i] = sin(phi_arr_[i]);
     }
-    double y_size = 10.0;
-    double dy = y_size/(Ny_ - 1);
+    double y_size = 1.0;
+    double dy = y_size/Ny_;
     y_arr_.resize(Ny_);
     for (int i = 0; i < Ny_; i++)
-        y_arr_[i] = - y_size/2. + i*dy;
+        y_arr_[i] = - y_size/2. + (i + 0.5)*dy;
 
     dN_pT_.resize(NpT_, 0.);
     dN_phi_.resize(Nphi_, 0.);
@@ -93,17 +97,19 @@ SpinPolarization::~SpinPolarization() {
 
 
 void SpinPolarization::compute_spin_polarization_shell() {
-    std::array<int, 2> POI_list = {3122, -3122};   // Lambda and Anti-Lambda
-    std::string rapidity_typename[2] = {"rapidity", "pseudorapidity"};
+    std::array<int, 1> POI_list = {3122};   // Lambda and Anti-Lambda
+    std::string rapidity_typename[1] = {"rapidity"};
     for (const auto &POI_monval: POI_list) {
-        for (int irap_type = 0; irap_type < 2; irap_type++) {
-            for (unsigned int itype = 0; itype < vorticity_typenames_.size();
-                 itype++) {
+        for (int irap_type = 0; irap_type < 1; irap_type++) {
+    //        for (unsigned int itype = 0; itype < vorticity_typenames_.size();
+    //             itype++) {
+                unsigned int itype = 2;
                 compute_spin_polarization(POI_monval, irap_type, itype);
                 output_integrated_spin_polarizations(
                         POI_monval, rapidity_typename[irap_type],
                         vorticity_typenames_[itype]);
-            }
+                
+            //}
         }
     }
 }
